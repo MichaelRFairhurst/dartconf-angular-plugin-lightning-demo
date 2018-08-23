@@ -6,13 +6,12 @@
 </game-box>
 
 <game-box *ngFor="let sunburns of sunburnses"
-    color="red"
-    [x]="sunburns.pos.x"
-    [y]="sunburns.pos.y">
+          color="red"
+          [x]="sunburns.pos.x"
+          [y]="sunburns.pos.y">
   100 Sunburns
 </game-box>
 
-<!--
 <game-box *ngFor="let rickAstleyQuote of rickAstleyQuotes"
     color="blue"
     [x]="rickAstleyQuote.pos.x"
@@ -20,6 +19,7 @@
   {{rickAstleyQuote.quote}}
 </game-box>
 
+<!--
 <game-box
     large
     color="grey"
