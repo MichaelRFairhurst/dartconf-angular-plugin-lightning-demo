@@ -20,7 +20,7 @@ class GameRoomComponent {
   //int score = 0;
   int step = 0;
   int health = 5;
-  //StreamController<int> _deadController = new StreamController<int>();
+  StreamController<int> _deadController = new StreamController<int>();
   final sunburnses = <$100Sunburns>[];
   //final rickAstleyQuotes = <RickAstleyQuote>[];
 
@@ -28,8 +28,8 @@ class GameRoomComponent {
     _init();
   }
 
-  //@Output()
-  //Stream<int> get dead => _deadController.stream;
+  @Output()
+  Stream<int> get dead => _deadController.stream;
 
   //void eatDatCookie(Cookie cookie) {
   //  cookie.eaten = true;
@@ -117,7 +117,7 @@ class GameRoomComponent {
       _gameStep();
     }
 
-    //_deadController.add(score);
+    _deadController.add(0);
   }
 
   //void _resetCookieJar() {
