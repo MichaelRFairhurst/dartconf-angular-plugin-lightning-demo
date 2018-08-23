@@ -1,7 +1,7 @@
 <h1>YOUR BRAIN GAME</h1>
 
 <div *ngIf="started">
-  <game-room></game-room>
+  <game-room (dead)="gameOver($event)"></game-room>
 </div>
 
 <div *ngIf="!started">

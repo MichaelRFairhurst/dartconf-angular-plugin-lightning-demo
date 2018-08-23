@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
+import 'package:angular_app/rick_astley_quote.dart';
 
 import 'coord.dart';
 import 'box_component.dart';
@@ -22,7 +23,7 @@ class GameRoomComponent {
   int health = 5;
   StreamController<int> _deadController = new StreamController<int>();
   final sunburnses = <$100Sunburns>[];
-  //final rickAstleyQuotes = <RickAstleyQuote>[];
+  final rickAstleyQuotes = <RickAstleyQuote>[];
 
   GameRoomComponent() {
     _init();
@@ -40,9 +41,9 @@ class GameRoomComponent {
     sunburnses.add($100Sunburns.atEdge(windowSize));
   }
 
-  //void _createRickAstleyQuote() {
-  //  rickAstleyQuotes.add(RickAstleyQuote.atEdge(windowSize));
-  //}
+  void _createRickAstleyQuote() {
+    rickAstleyQuotes.add(RickAstleyQuote.atEdge(windowSize));
+  }
 
   void _gameStep() {
     step++;
@@ -64,19 +65,19 @@ class GameRoomComponent {
       }
     });
 
-    //// copy before modify
-    //new List<RickAstleyQuote>.from(rickAstleyQuotes).forEach((rickAstleyQuote) {
-    //  if (rickAstleyQuote.isFarOutside(windowSize)) {
-    //    rickAstleyQuotes.remove(rickAstleyQuote);
-    //    rickAstleyQuotes.add(RickAstleyQuote.atEdge(windowSize));
-    //  } else if (rickAstleyQuote.pos.hasHit(brainPos)) {
-    //    rickAstleyQuotes.remove(rickAstleyQuote);
-    //    rickAstleyQuotes.add(RickAstleyQuote.atEdge(windowSize));
-    //    health = health < 5 ? health + 1 : 5;
-    //  } else {
-    //    rickAstleyQuote.move();
-    //  }
-    //});
+    // copy before modify
+    new List<RickAstleyQuote>.from(rickAstleyQuotes).forEach((rickAstleyQuote) {
+      if (rickAstleyQuote.isFarOutside(windowSize)) {
+        rickAstleyQuotes.remove(rickAstleyQuote);
+        rickAstleyQuotes.add(RickAstleyQuote.atEdge(windowSize));
+      } else if (rickAstleyQuote.pos.hasHit(brainPos)) {
+        rickAstleyQuotes.remove(rickAstleyQuote);
+        rickAstleyQuotes.add(RickAstleyQuote.atEdge(windowSize));
+        health = health < 5 ? health + 1 : 5;
+      } else {
+        rickAstleyQuote.move();
+      }
+    });
 
     //cookieJar.move();
     //if (cookieJar.isFarOutside(windowSize)) {
@@ -106,9 +107,9 @@ class GameRoomComponent {
     for (var i = 1; i >= 0; --i) {
       _create100Sunburns();
     }
-    //for (var i = 3; i >= 0; --i) {
-    //  _createRickAstleyQuote();
-    //}
+    for (var i = 3; i >= 0; --i) {
+      _createRickAstleyQuote();
+    }
 
     //_resetCookieJar();
 
