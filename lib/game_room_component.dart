@@ -5,6 +5,7 @@ import 'package:angular/angular.dart';
 
 import 'coord.dart';
 import 'box_component.dart';
+import '100_sunburns.dart';
 
 @Component(
     selector: 'game-room',
@@ -20,7 +21,7 @@ class GameRoomComponent {
   int step = 0;
   int health = 5;
   //StreamController<int> _deadController = new StreamController<int>();
-  //final sunburnses = <$100Sunburns>[];
+  final sunburnses = <$100Sunburns>[];
   //final rickAstleyQuotes = <RickAstleyQuote>[];
 
   GameRoomComponent() {
@@ -35,9 +36,9 @@ class GameRoomComponent {
   //  score++;
   //}
 
-  //void _create100Sunburns() {
-  //  sunburnses.add($100Sunburns.atEdge(windowSize));
-  //}
+  void _create100Sunburns() {
+    sunburnses.add($100Sunburns.atEdge(windowSize));
+  }
 
   //void _createRickAstleyQuote() {
   //  rickAstleyQuotes.add(RickAstleyQuote.atEdge(windowSize));
@@ -49,19 +50,19 @@ class GameRoomComponent {
       brainPos = brainPos.stepTo(cursorPos, 0.01);
     }
 
-    //// copy before modify
-    //new List<$100Sunburns>.from(sunburnses).forEach((sunburns) {
-    //  if (sunburns.isFarOutside(windowSize)) {
-    //    sunburnses.remove(sunburns);
-    //    sunburnses.add($100Sunburns.atEdge(windowSize));
-    //  } else if (sunburns.pos.hasHit(brainPos)) {
-    //    sunburnses.remove(sunburns);
-    //    sunburnses.add($100Sunburns.atEdge(windowSize));
-    //    health -= 1;
-    //  } else {
-    //    sunburns.move();
-    //  }
-    //});
+    // copy before modify
+    new List<$100Sunburns>.from(sunburnses).forEach((sunburns) {
+      if (sunburns.isFarOutside(windowSize)) {
+        sunburnses.remove(sunburns);
+        sunburnses.add($100Sunburns.atEdge(windowSize));
+      } else if (sunburns.pos.hasHit(brainPos)) {
+        sunburnses.remove(sunburns);
+        sunburnses.add($100Sunburns.atEdge(windowSize));
+        health -= 1;
+      } else {
+        sunburns.move();
+      }
+    });
 
     //// copy before modify
     //new List<RickAstleyQuote>.from(rickAstleyQuotes).forEach((rickAstleyQuote) {
@@ -83,17 +84,17 @@ class GameRoomComponent {
     //  _resetCookieJar();
     //}
 
-    //int headStart = 200;
-    //int curveReduction = 1000; // some n
-    //// 1 / (x + n) where n reduces the speed of the curve
-    //double maximum = 1 / curveReduction; // y where x = 0 for some n
-    //// now 1 / (x + n) starts at some h. Factor so that it starts at 1
-    //double factor = 1 / maximum;
-    //// now invert it so it goes from 0 to 1 instead of 1 to 0.
-    //double difficulty = 1 - factor / (step + curveReduction + headStart);
-    //if (sunburnses.length < (difficulty * 150).toInt()) {
-    //  sunburnses.add($100Sunburns.atEdge(windowSize));
-    //}
+    int headStart = 200;
+    int curveReduction = 1000; // some n
+    // 1 / (x + n) where n reduces the speed of the curve
+    double maximum = 1 / curveReduction; // y where x = 0 for some n
+    // now 1 / (x + n) starts at some h. Factor so that it starts at 1
+    double factor = 1 / maximum;
+    // now invert it so it goes from 0 to 1 instead of 1 to 0.
+    double difficulty = 1 - factor / (step + curveReduction + headStart);
+    if (sunburnses.length < (difficulty * 150).toInt()) {
+      sunburnses.add($100Sunburns.atEdge(windowSize));
+    }
   }
 
   void _init() async {
@@ -102,9 +103,9 @@ class GameRoomComponent {
 
     brainPos = Coord((windowSize.x / 2), (windowSize.y / 2));
 
-    //for (var i = 1; i >= 0; --i) {
-    //  _create100Sunburns();
-    //}
+    for (var i = 1; i >= 0; --i) {
+      _create100Sunburns();
+    }
     //for (var i = 3; i >= 0; --i) {
     //  _createRickAstleyQuote();
     //}
