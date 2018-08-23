@@ -2,6 +2,9 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
+import 'package:angular_app/cookie.dart';
+import 'package:angular_app/cookie_component.dart';
+import 'package:angular_app/cookie_jar.dart';
 import 'package:angular_app/rick_astley_quote.dart';
 
 import 'coord.dart';
@@ -11,14 +14,14 @@ import '100_sunburns.dart';
 @Component(
     selector: 'game-room',
     templateUrl: 'game_room_component.html',
-    directives: [NgStyle, NgFor, NgIf, BoxComponent])
+    directives: [NgStyle, NgFor, NgIf, BoxComponent, CookieComponent])
 class GameRoomComponent {
   Coord brainPos;
   Coord windowSize;
   Coord cursorPos;
-  //CookieJar cookieJar;
+  CookieJar cookieJar;
 
-  //int score = 0;
+  int score = 0;
   int step = 0;
   int health = 5;
   StreamController<int> _deadController = new StreamController<int>();
@@ -32,10 +35,10 @@ class GameRoomComponent {
   @Output()
   Stream<int> get dead => _deadController.stream;
 
-  //void eatDatCookie(Cookie cookie) {
-  //  cookie.eaten = true;
-  //  score++;
-  //}
+  void eatDatCookie(Cookie cookie) {
+    cookie.eaten = true;
+    score++;
+  }
 
   void _create100Sunburns() {
     sunburnses.add($100Sunburns.atEdge(windowSize));
@@ -79,11 +82,10 @@ class GameRoomComponent {
       }
     });
 
-    //cookieJar.move();
-    //if (cookieJar.isFarOutside(windowSize)) {
-    //  print('here $cookieJar');
-    //  _resetCookieJar();
-    //}
+    cookieJar.move();
+    if (cookieJar.isFarOutside(windowSize)) {
+      _resetCookieJar();
+    }
 
     int headStart = 200;
     int curveReduction = 1000; // some n
@@ -111,19 +113,19 @@ class GameRoomComponent {
       _createRickAstleyQuote();
     }
 
-    //_resetCookieJar();
+    _resetCookieJar();
 
     while (health > 0) {
       await Future.delayed(Duration(milliseconds: 30));
       _gameStep();
     }
 
-    _deadController.add(0);
+    _deadController.add(score);
   }
 
-  //void _resetCookieJar() {
-  //  cookieJar = CookieJar.atEdge(windowSize);
-  //}
+  void _resetCookieJar() {
+    cookieJar = CookieJar.atEdge(windowSize);
+  }
 
   void _watchCursor() {
     window.onMouseMove.listen((move) {
