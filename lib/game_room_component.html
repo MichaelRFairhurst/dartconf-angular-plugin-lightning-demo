@@ -1,0 +1,45 @@
+<game-box
+    color="green"
+    [x]="brainPos.x"
+    [y]="brainPos.y">
+  Your Brain
+</game-box>
+
+<game-box *ngFor="let sunburns of sunburnses"
+    color="red"
+    [x]="sunburns.pos.x"
+    [y]="sunburns.pos.y">
+  100 Sunburns
+</game-box>
+
+<game-box *ngFor="let rickAstleyQuote of rickAstleyQuotes"
+    color="blue"
+    [x]="rickAstleyQuote.pos.x"
+    [y]="rickAstleyQuote.pos.y">
+  {{rickAstleyQuote.quote}}
+</game-box>
+
+<game-box
+    large
+    color="grey"
+    [x]="cookieJar.pos.x"
+    [y]="cookieJar.pos.y">
+  <game-cookie
+      *ngFor="let cookie of cookieJar.cookies"
+      [cookie]="cookie"
+      (eatenChange)="eatDatCookie(cookie)">
+  </game-cookie>
+
+    <!--
+  <div *ngFor="let cookie of cookieJar.cookies; let i = index">
+
+    <button *ngIf="cookie" (click)="eatDatCookie(i)">
+      A Cookie
+    </button>
+
+    <div *ngIf="!cookie">OM NOM NOM</div>
+
+    <br />
+  </div>
+    -->
+</game-box>

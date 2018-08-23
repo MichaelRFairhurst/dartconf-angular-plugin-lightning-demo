@@ -1,7 +1,6 @@
 import 'package:angular/angular.dart';
-
-import 'package:angular_app/app_component.dart';
+import 'package:angular_app/game_component.template.dart' as ng;
 
 void main() {
-  bootstrap(AppComponent);
+  runApp(ng.GameComponentNgFactory);
 }
