@@ -2,8 +2,6 @@ import 'dart:html';
 
 import 'package:angular/angular.dart';
 
-import 'brain_room.dart';
-
 @Directive(selector: 'game-box')
 class BoxComponent {
   final Element _el;
