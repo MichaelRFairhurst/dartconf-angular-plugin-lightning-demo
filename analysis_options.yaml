@@ -3,12 +3,7 @@ analyzer:
 #   exclude:
 #     - path/to/excluded/files/**
   plugins:
-    angular:
-      enabled: true
-
-plugins:
-  angular:
-    enabled: true
+    - angular
 
 # Lint rules and documentation, see http://dart-lang.github.io/linter/lints
 linter:
